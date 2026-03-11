@@ -1,31 +1,25 @@
 package com.vayunmathur.games.unblockjam.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-
-private val CustomDarkColorScheme = darkColorScheme(
-    primary = DarkBrown,
-    secondary = Brown,
-    tertiary = Tan,
-    background = Brown,
-    surface = DarkBrown,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color.White,
-    onSurface = Color.White,
-    primaryContainer = Orange,
-    error = Color.Red
-)
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun UnblockJamTheme(
     content: @Composable () -> Unit
 ) {
+    val context = LocalContext.current
+    val colorScheme = if (isSystemInDarkTheme()) {
+        dynamicDarkColorScheme(context)
+    } else {
+        dynamicLightColorScheme(context)
+    }
+
     MaterialTheme(
-        colorScheme = CustomDarkColorScheme,
+        colorScheme = colorScheme,
         typography = Typography,
         content = content
     )

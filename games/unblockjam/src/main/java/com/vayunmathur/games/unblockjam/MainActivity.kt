@@ -216,7 +216,7 @@ fun PuzzleInfoBox(levelIndex: Int, onLevelChange: (Int) -> Unit, isCompleted: Bo
         if (isCompleted) {
             Text(
                 text = "Completed",
-                color = MaterialTheme.colorScheme.error,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -246,7 +246,8 @@ fun MovesInfoBox(moves: Int, bestScore: Int?, optimalMoves: Int) {
 fun InfoBox(title: String, content: @Composable () -> Unit) {
     Surface(
         modifier = Modifier.size(width = 150.dp, height = 120.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceContainer
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -276,19 +277,19 @@ fun GameBoard(
             modifier = Modifier
                 .size(cellWidth, cellHeight)
                 .offset(boardSize, cellHeight * levelData.exit.y)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
         )
 
         Box(
             modifier = Modifier
                 .size(boardSize)
-                .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(12.dp))
         ) {
 
 
             levelData.blocks.forEachIndexed { index, block ->
                 val isMainBlock = index == 0
-                val color = if (isMainBlock) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primaryContainer
+                val color = if (isMainBlock) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer
                 val blockWidth = cellWidth * block.dimension.width
                 val blockHeight = cellHeight * block.dimension.height
 
@@ -316,7 +317,7 @@ fun GameBoard(
                         .size(blockWidth, blockHeight)
                         .offset { IntOffset(currentOffsetX.roundToPx(), offsetY.roundToPx()) }
                         .padding(4.dp)
-                        .background(color, shape = RoundedCornerShape(4.dp))
+                        .background(color, shape = RoundedCornerShape(8.dp))
                         .pointerInput(block, levelData, isLevelWon) {
                             if (isLevelWon) return@pointerInput
 
