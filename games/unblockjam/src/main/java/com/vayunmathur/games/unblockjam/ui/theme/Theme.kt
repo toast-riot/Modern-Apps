@@ -6,19 +6,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val CustomDarkColorScheme = darkColorScheme(
-    primary = DarkBrown,
-    secondary = Brown,
-    tertiary = Tan,
-    background = Brown,
-    surface = DarkBrown,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color.White,
-    onSurface = Color.White,
-    primaryContainer = Orange,
-    error = Color.Red
+    primary = Ashen_background,
+    secondary = Color.Green,
+    tertiary = Color.Magenta,
+    background = Ashen_g_9,
+    surface = Ashen_background,
+    onPrimary = Ashen_g_2,
+    onSecondary = Ashen_g_2,
+    onTertiary = Ashen_g_2,
+    onBackground = Ashen_g_2,
+    onSurface = Ashen_g_2,
+    primaryContainer = Ashen_orange_glow,
+    error = Ashen_red_flame,
 )
+
+//background: g_9
+//main block: red_ember
+//secondary block: orange_blaze
+//play area, surfaces: background
 
 @Composable
 fun UnblockJamTheme(
