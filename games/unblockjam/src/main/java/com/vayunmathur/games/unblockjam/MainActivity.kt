@@ -95,7 +95,7 @@ sealed interface Route: NavKey {
 
 @Composable
 fun Navigation(completedLevelsRepository: CompletedLevelsRepository) {
-    val backStack = rememberNavBackStack<Route>(Route.LevelSelector(0))
+    val backStack = rememberNavBackStack<Route>(Route.PackSelector)
     MainNavigation(backStack) {
         entry<Route.PackSelector> {
             PackScreen(backStack)
