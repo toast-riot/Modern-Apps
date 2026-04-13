@@ -95,7 +95,7 @@ sealed interface Route: NavKey {
 
 @Composable
 fun Navigation(completedLevelsRepository: CompletedLevelsRepository) {
-    val backStack = rememberNavBackStack<Route>(Route.LevelSelector(0))
+    val backStack = rememberNavBackStack<Route>(Route.PackSelector)
     MainNavigation(backStack) {
         entry<Route.PackSelector> {
             PackScreen(backStack)
@@ -418,7 +418,7 @@ fun GameBoard(
                 val color = if (isMainBlock)
                     MaterialTheme.colorScheme.error
                 else if (block.fixed)
-                    MaterialTheme.colorScheme.secondaryContainer
+                    MaterialTheme.colorScheme.background
                 else
                     MaterialTheme.colorScheme.primaryContainer
                 val blockWidth = cellWidth * block.dimension.width
@@ -434,10 +434,26 @@ fun GameBoard(
                     "blockOffset"
                 )
 
-                Box(
-                    modifier = Modifier
-                        .size(blockWidth, blockHeight)
-                        .offset { IntOffset(currentOffsetX.roundToPx(), offsetY.roundToPx()) }
+                var blockModifier = Modifier
+                    .size(blockWidth, blockHeight)
+                    .offset { IntOffset(currentOffsetX.roundToPx(), offsetY.roundToPx()) }
+
+                if (block.fixed) {
+                    val top = block.position.y == 0
+                    val right = block.position.x + block.dimension.width == levelData.dimension.width
+                    val left = block.position.x == 0
+                    val bottom = block.position.y + block.dimension.height == levelData.dimension.height
+                    
+                    blockModifier = blockModifier.background(
+                        color, shape = RoundedCornerShape(
+                            topStartPercent = if (top || left) 0 else 10,
+                            topEndPercent = if (top || right) 0 else 10,
+                            bottomStartPercent = if (bottom || left) 0 else 10,
+                            bottomEndPercent = if (bottom || right) 0 else 10
+                        )
+                    )
+                } else {
+                    blockModifier = blockModifier
                         .padding(scaling * 4)
                         .background(color, shape = RoundedCornerShape(percent = 10))
                         .blockDragGestures(
@@ -455,7 +471,9 @@ fun GameBoard(
                             offsetXUpdater = { offsetX = it },
                             offsetYUpdater = { offsetY = it }
                         )
-                )
+                }
+
+                Box(modifier = blockModifier)
             }
         }
     }

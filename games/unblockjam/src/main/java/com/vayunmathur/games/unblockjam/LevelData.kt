@@ -31,7 +31,8 @@ data class LevelPack(
 ) {
     companion object {
         private val PACK_FILES = listOf(
-            "original_pack.json"
+            "original_pack.json",
+            "testpack_1.json"
         )
 
         var PACKS: List<LevelPack> = listOf()
